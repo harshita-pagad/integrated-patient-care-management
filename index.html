@@ -1,0 +1,2874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareBridge Hospital | Integrated Patient Care Management</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --primary:#172f55;
+    --secondary:#0b78a8;
+    --accent:#c02667;
+    --light:#f4f8fc;
+    --white:#ffffff;
+    --dark:#182333;
+    --green:#159957;
+    --red:#d93025;
+    --shadow:0 8px 25px rgba(0,0,0,.10);
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:var(--light);
+    color:var(--dark);
+}
+
+button,input,select,textarea{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+/* ================= LOGIN ================= */
+
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    background:#eef5fa;
+}
+
+.login-image{
+    width:55%;
+    min-height:100vh;
+    background:
+    linear-gradient(rgba(10,35,65,.40),rgba(10,35,65,.55)),
+    url("https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1600&q=85")
+    center/cover;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+    padding:50px;
+}
+
+.login-image-content{
+    max-width:600px;
+}
+
+.login-image h1{
+    font-size:48px;
+    margin-bottom:20px;
+}
+
+.login-image p{
+    font-size:19px;
+    line-height:1.7;
+}
+
+.login-box{
+    width:45%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:30px;
+}
+
+.login-card{
+    background:white;
+    width:100%;
+    max-width:450px;
+    padding:40px;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.logo-icon{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+    background:var(--accent);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:27px;
+}
+
+.logo h2{
+    color:var(--primary);
+}
+
+.login-card h3{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.login-card .sub{
+    color:#777;
+    margin-bottom:25px;
+}
+
+.form-group{
+    margin-bottom:17px;
+}
+
+.form-group label{
+    display:block;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+    width:100%;
+    padding:13px;
+    border:1px solid #d5dce4;
+    border-radius:8px;
+    outline:none;
+    background:white;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus{
+    border-color:var(--secondary);
+    box-shadow:0 0 0 3px rgba(11,120,168,.10);
+}
+
+.primary-btn{
+    border:none;
+    background:var(--accent);
+    color:white;
+    padding:13px 22px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.primary-btn:hover{
+    transform:translateY(-1px);
+    opacity:.92;
+}
+
+.full{
+    width:100%;
+}
+
+.demo-login{
+    margin-top:20px;
+    background:#f3f7fb;
+    padding:15px;
+    border-radius:10px;
+    font-size:13px;
+    line-height:1.7;
+}
+
+/* ================= MAIN APP ================= */
+
+#app{
+    display:none;
+}
+
+.topbar{
+    height:74px;
+    background:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-icon{
+    width:43px;
+    height:43px;
+    border-radius:10px;
+    background:var(--accent);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:22px;
+}
+
+.brand h2{
+    color:var(--primary);
+    font-size:20px;
+}
+
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.role-badge{
+    padding:7px 13px;
+    border-radius:20px;
+    background:#eaf4fb;
+    color:var(--secondary);
+    font-size:13px;
+    font-weight:bold;
+}
+
+.logout{
+    border:0;
+    background:#fcecef;
+    color:var(--accent);
+    padding:8px 14px;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+/* ================= NAV ================= */
+
+.navbar{
+    background:var(--primary);
+    color:white;
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:5px;
+    padding:0 15px;
+}
+
+.navbar button{
+    background:none;
+    border:0;
+    color:white;
+    padding:17px 14px;
+    font-weight:bold;
+    transition:.2s;
+}
+
+.navbar button:hover,
+.navbar button.active{
+    background:var(--accent);
+}
+
+/* ================= HOME ================= */
+
+.page{
+    display:none;
+}
+
+.page.active{
+    display:block;
+}
+
+.hero{
+    min-height:520px;
+    background:
+    linear-gradient(90deg,rgba(12,43,76,.86),rgba(12,43,76,.35)),
+    url("https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+    display:flex;
+    align-items:center;
+    color:white;
+    padding:60px 8%;
+}
+
+.hero-content{
+    max-width:650px;
+}
+
+.hero-content .tag{
+    display:inline-block;
+    background:rgba(255,255,255,.18);
+    padding:8px 14px;
+    border-radius:20px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:52px;
+    line-height:1.1;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:18px;
+    line-height:1.7;
+    margin-bottom:28px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.white-btn{
+    background:white;
+    color:var(--primary);
+    border:0;
+    padding:14px 23px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+.outline-btn{
+    background:transparent;
+    color:white;
+    border:1px solid white;
+    padding:14px 23px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    background:white;
+    box-shadow:var(--shadow);
+    margin:-40px 7% 50px;
+    position:relative;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.stat{
+    padding:28px;
+    text-align:center;
+    border-right:1px solid #eee;
+}
+
+.stat:last-child{
+    border-right:0;
+}
+
+.stat strong{
+    display:block;
+    color:var(--accent);
+    font-size:30px;
+    margin-bottom:6px;
+}
+
+.stat span{
+    color:#666;
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    padding:65px 7%;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.section-heading h2{
+    font-size:34px;
+    color:var(--primary);
+    margin-bottom:10px;
+}
+
+.section-heading p{
+    color:#687381;
+}
+
+/* ================= DEPARTMENTS ================= */
+
+.department-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.department{
+    background:white;
+    border-radius:14px;
+    padding:30px;
+    text-align:center;
+    box-shadow:var(--shadow);
+    transition:.25s;
+    border-bottom:4px solid var(--accent);
+}
+
+.department:hover{
+    transform:translateY(-6px);
+}
+
+.department .icon{
+    font-size:45px;
+    margin-bottom:15px;
+}
+
+.department h3{
+    color:var(--primary);
+    margin-bottom:8px;
+}
+
+.department p{
+    color:#777;
+    font-size:14px;
+}
+
+/* ================= DOCTORS ================= */
+
+.doctor-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.doctor-card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:var(--shadow);
+}
+
+.doctor-card img{
+    width:100%;
+    height:230px;
+    object-fit:cover;
+}
+
+.doctor-info{
+    padding:20px;
+}
+
+.doctor-info h3{
+    color:var(--primary);
+    margin-bottom:6px;
+}
+
+.doctor-info .speciality{
+    color:var(--accent);
+    font-weight:bold;
+    font-size:14px;
+}
+
+.doctor-info p{
+    color:#777;
+    font-size:13px;
+    margin:10px 0;
+    line-height:1.5;
+}
+
+.available{
+    color:var(--green);
+    font-size:13px;
+    font-weight:bold;
+}
+
+/* ================= PAGE CONTAINER ================= */
+
+.page-container{
+    padding:40px 7%;
+}
+
+.page-title{
+    margin-bottom:30px;
+}
+
+.page-title h1{
+    color:var(--primary);
+    font-size:34px;
+}
+
+.page-title p{
+    color:#777;
+    margin-top:7px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:28px;
+    box-shadow:var(--shadow);
+    margin-bottom:25px;
+}
+
+/* ================= FORMS ================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
+}
+
+.form-grid .full-field{
+    grid-column:1/-1;
+}
+
+.form-actions{
+    margin-top:10px;
+    display:flex;
+    gap:10px;
+}
+
+/* ================= TABLE ================= */
+
+.table-wrapper{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:13px;
+    text-align:left;
+    border-bottom:1px solid #e8edf2;
+}
+
+th{
+    background:#f1f6fa;
+    color:var(--primary);
+}
+
+.status{
+    display:inline-block;
+    padding:5px 10px;
+    border-radius:15px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.status.green{
+    background:#e4f7ed;
+    color:var(--green);
+}
+
+.status.orange{
+    background:#fff3df;
+    color:#b26a00;
+}
+
+.status.red{
+    background:#fde8e7;
+    color:var(--red);
+}
+
+/* ================= SEARCH ================= */
+
+.search-box{
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.search-box input{
+    flex:1;
+    padding:13px;
+    border:1px solid #d4dce5;
+    border-radius:8px;
+}
+
+/* ================= ACCESS DENIED ================= */
+
+.access-denied{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.access-denied .lock{
+    font-size:65px;
+    margin-bottom:15px;
+}
+
+.access-denied h2{
+    color:var(--red);
+    margin-bottom:10px;
+}
+
+.access-denied p{
+    color:#777;
+}
+
+/* ================= APPOINTMENT ================= */
+
+.appointment-box{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:25px;
+}
+
+.info-box{
+    background:#eef7fb;
+    padding:25px;
+    border-radius:12px;
+}
+
+.info-box h3{
+    color:var(--primary);
+    margin-bottom:15px;
+}
+
+.info-box ul{
+    list-style:none;
+}
+
+.info-box li{
+    padding:10px 0;
+    border-bottom:1px solid #dbe8ef;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    background:#102746;
+    color:white;
+    padding:45px 7% 20px;
+    margin-top:30px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:30px;
+    margin-bottom:30px;
+}
+
+footer h3{
+    margin-bottom:15px;
+}
+
+footer p,
+footer li{
+    color:#ccd8e6;
+    font-size:14px;
+    line-height:1.8;
+}
+
+footer ul{
+    list-style:none;
+}
+
+.copyright{
+    border-top:1px solid rgba(255,255,255,.15);
+    padding-top:20px;
+    text-align:center;
+    color:#aebed0;
+}
+
+/* ================= PRINT ================= */
+
+.print-area{
+    margin-top:20px;
+}
+
+.print-btn{
+    background:var(--primary);
+    color:white;
+    border:0;
+    padding:11px 18px;
+    border-radius:7px;
+    font-weight:bold;
+}
+
+@media print{
+    body{
+        background:white;
+    }
+
+    .topbar,
+    .navbar,
+    footer,
+    .no-print,
+    button{
+        display:none !important;
+    }
+
+    .page{
+        display:none !important;
+    }
+
+    #printPage{
+        display:block !important;
+    }
+
+    .card{
+        box-shadow:none;
+        border:1px solid #ddd;
+    }
+
+    @page{
+        margin:15mm;
+    }
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+
+    .login-image{
+        display:none;
+    }
+
+    .login-box{
+        width:100%;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .doctor-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .department-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr 1fr;
+    }
+}
+
+@media(max-width:650px){
+
+    .topbar{
+        padding:0 15px;
+    }
+
+    .brand h2{
+        font-size:16px;
+    }
+
+    .role-badge{
+        display:none;
+    }
+
+    .navbar{
+        overflow-x:auto;
+        justify-content:flex-start;
+    }
+
+    .navbar button{
+        white-space:nowrap;
+        padding:13px 10px;
+        font-size:12px;
+    }
+
+    .hero{
+        padding:45px 25px;
+        min-height:500px;
+    }
+
+    .hero h1{
+        font-size:36px;
+    }
+
+    .stats{
+        margin:20px;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .section,
+    .page-container{
+        padding:40px 20px;
+    }
+
+    .doctor-grid,
+    .department-grid,
+    .form-grid,
+    .appointment-box{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+
+    .login-card{
+        padding:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================================================
+                     LOGIN PAGE
+========================================================= -->
+
+<div id="loginPage">
+
+    <div class="login-image">
+        <div class="login-image-content">
+            <div class="tag">🏥 Advanced Integrated Healthcare</div>
+
+            <h1>Your Health,<br>Our Priority</h1>
+
+            <p>
+                A modern integrated patient care and hospital management
+                platform connecting doctors, nurses, receptionists,
+                billing staff and administrators.
+            </p>
+        </div>
+    </div>
+
+    <div class="login-box">
+
+        <div class="login-card">
+
+            <div class="logo">
+                <div class="logo-icon">✚</div>
+                <div>
+                    <h2>CareBridge</h2>
+                    <small>Integrated Patient Care</small>
+                </div>
+            </div>
+
+            <h3>Welcome Back</h3>
+            <p class="sub">Sign in to access your hospital portal.</p>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="username" placeholder="Enter username">
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter password">
+            </div>
+
+            <div class="form-group">
+                <label>Login As</label>
+
+                <select id="loginRole">
+                    <option value="admin">Administrator</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="receptionist">Receptionist</option>
+                    <option value="nurse">Nurse</option>
+                    <option value="billing">Billing Staff</option>
+                </select>
+            </div>
+
+            <button class="primary-btn full" onclick="login()">
+                🔐 Login to Portal
+            </button>
+
+            <div class="demo-login">
+                <b>Demo Login</b><br>
+                Admin: admin / admin123<br>
+                Doctor: doctor / doctor123<br>
+                Receptionist: reception / reception123<br>
+                Nurse: nurse / nurse123<br>
+                Billing: billing / billing123
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- =========================================================
+                     MAIN APPLICATION
+========================================================= -->
+
+<div id="app">
+
+    <!-- TOP BAR -->
+
+    <header class="topbar">
+
+        <div class="brand">
+
+            <div class="brand-icon">✚</div>
+
+            <div>
+                <h2>CareBridge Hospital</h2>
+                <small>Integrated Patient Care Management</small>
+            </div>
+
+        </div>
+
+        <div class="user-area">
+
+            <span id="welcomeUser"></span>
+
+            <span class="role-badge" id="currentRole"></span>
+
+            <button class="logout" onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- NAVIGATION -->
+
+    <nav class="navbar">
+
+        <button onclick="showPage('home')" class="active">
+            🏠 Home
+        </button>
+
+        <button onclick="showPage('patients')">
+            👤 Patients
+        </button>
+
+        <button onclick="showPage('appointments')">
+            📅 Appointments
+        </button>
+
+        <button onclick="showPage('doctors')">
+            👨‍⚕️ Doctors
+        </button>
+
+        <button onclick="showPage('prescriptions')">
+            💊 Prescriptions
+        </button>
+
+        <button onclick="showPage('billing')">
+            💳 Billing
+        </button>
+
+        <button onclick="showPage('discharge')">
+            📄 Discharge
+        </button>
+
+        <button onclick="showPage('printPage')">
+            🖨️ Print
+        </button>
+
+    </nav>
+
+
+    <!-- =====================================================
+                         HOME
+    ====================================================== -->
+
+    <section id="home" class="page active">
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <span class="tag">
+                    ✓ NABH-inspired digital healthcare experience
+                </span>
+
+                <h1>
+                    Compassionate Care.
+                    Smarter Healthcare.
+                </h1>
+
+                <p>
+                    Manage patients, appointments, prescriptions,
+                    billing and hospital workflows from one integrated
+                    platform.
+                </p>
+
+                <div class="hero-buttons">
+
+                    <button class="white-btn"
+                            onclick="showPage('appointments')">
+                        📅 Book Appointment
+                    </button>
+
+                    <button class="outline-btn"
+                            onclick="showPage('doctors')">
+                        👨‍⚕️ Explore Doctors
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat">
+                <strong>150+</strong>
+                <span>Doctors</span>
+            </div>
+
+            <div class="stat">
+                <strong>500+</strong>
+                <span>Hospital Beds</span>
+            </div>
+
+            <div class="stat">
+                <strong>24/7</strong>
+                <span>Emergency Care</span>
+            </div>
+
+            <div class="stat">
+                <strong>15+</strong>
+                <span>Specialities</span>
+            </div>
+
+        </div>
+
+
+        <!-- DEPARTMENTS -->
+
+        <div class="section">
+
+            <div class="section-heading">
+                <h2>Our Specialities</h2>
+                <p>Expert care across multiple medical departments</p>
+            </div>
+
+            <div class="department-grid">
+
+                <div class="department">
+                    <div class="icon">❤️</div>
+                    <h3>Cardiology</h3>
+                    <p>Comprehensive heart and cardiovascular care.</p>
+                </div>
+
+                <div class="department">
+                    <div class="icon">🧠</div>
+                    <h3>Neurology</h3>
+                    <p>Advanced diagnosis and neurological treatment.</p>
+                </div>
+
+                <div class="department">
+                    <div class="icon">🦴</div>
+                    <h3>Orthopaedics</h3>
+                    <p>Bone, joint and musculoskeletal care.</p>
+                </div>
+
+                <div class="department">
+                    <div class="icon">👶</div>
+                    <h3>Paediatrics</h3>
+                    <p>Specialized healthcare for children.</p>
+                </div>
+
+                <div class="department">
+                    <div class="icon">🫁</div>
+                    <h3>Pulmonology</h3>
+                    <p>Respiratory and pulmonary care.</p>
+                </div>
+
+                <div class="department">
+                    <div class="icon">🚑</div>
+                    <h3>Emergency Care</h3>
+                    <p>24/7 emergency and critical care services.</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOME DOCTORS -->
+
+        <div class="section">
+
+            <div class="section-heading">
+
+                <h2>Meet Our Doctors</h2>
+
+                <p>
+                    Experienced specialists committed to patient care
+                </p>
+
+            </div>
+
+            <div class="doctor-grid">
+
+                <div class="doctor-card">
+
+                    <img src="img1.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Ananya Sharma</h3>
+
+                        <div class="speciality">
+                            Cardiologist
+                        </div>
+
+                        <p>
+                            12+ years experience in cardiovascular care.
+                        </p>
+
+                        <span class="available">
+                            ● Available Today
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctor-card">
+
+                    <img src="img2.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Rahul Mehta</h3>
+
+                        <div class="speciality">
+                            Neurologist
+                        </div>
+
+                        <p>
+                            Specialist in neurological disorders.
+                        </p>
+
+                        <span class="available">
+                            ● Available Today
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctor-card">
+
+                    <img src="img3.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Priya Rao</h3>
+
+                        <div class="speciality">
+                            Paediatrician
+                        </div>
+
+                        <p>
+                            Child healthcare and preventive medicine.
+                        </p>
+
+                        <span class="available">
+                            ● Available Today
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctor-card">
+
+                    <img src="img4.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Arjun Kumar</h3>
+
+                        <div class="speciality">
+                            Orthopaedic Surgeon
+                        </div>
+
+                        <p>
+                            Expert in bone and joint treatments.
+                        </p>
+
+                        <span class="available">
+                            ● Available Today
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FOOTER -->
+
+        <footer>
+
+            <div class="footer-grid">
+
+                <div>
+                    <h3>CareBridge Hospital</h3>
+
+                    <p>
+                        Integrated healthcare management platform
+                        designed to connect patients, doctors and
+                        hospital departments.
+                    </p>
+                </div>
+
+                <div>
+                    <h3>Quick Links</h3>
+
+                    <ul>
+                        <li>Home</li>
+                        <li>Doctors</li>
+                        <li>Appointments</li>
+                        <li>Emergency</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Departments</h3>
+
+                    <ul>
+                        <li>Cardiology</li>
+                        <li>Neurology</li>
+                        <li>Orthopaedics</li>
+                        <li>Paediatrics</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>Contact</h3>
+
+                    <p>
+                        📍 Bengaluru, Karnataka<br>
+                        ☎ +91 80 4000 5000<br>
+                        ✉ care@carebridge.com
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="copyright">
+                © 2026 CareBridge Hospital. All Rights Reserved.
+            </div>
+
+        </footer>
+
+    </section>
+
+
+    <!-- =====================================================
+                       PATIENTS
+    ====================================================== -->
+
+    <section id="patients" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+                <h1>Patient Management</h1>
+                <p>Register and manage patient information</p>
+            </div>
+
+            <div id="patientAccess"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+                       APPOINTMENTS
+    ====================================================== -->
+
+    <section id="appointments" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+
+                <h1>Appointments</h1>
+
+                <p>
+                    Schedule and manage patient appointments
+                </p>
+
+            </div>
+
+            <div class="appointment-box">
+
+                <div class="card">
+
+                    <h2>Book Appointment</h2>
+
+                    <br>
+
+                    <div class="form-group">
+                        <label>Patient Name</label>
+                        <input id="appointmentPatient"
+                               placeholder="Patient name">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Doctor</label>
+
+                        <select id="appointmentDoctor">
+
+                            <option>Dr. Ananya Sharma</option>
+                            <option>Dr. Rahul Mehta</option>
+                            <option>Dr. Priya Rao</option>
+                            <option>Dr. Arjun Kumar</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="date" id="appointmentDate">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="time" id="appointmentTime">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Reason</label>
+                        <textarea id="appointmentReason"
+                                  rows="3"
+                                  placeholder="Reason for appointment"></textarea>
+                    </div>
+
+                    <button class="primary-btn"
+                            onclick="bookAppointment()">
+                        Book Appointment
+                    </button>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <h3>Today's Schedule</h3>
+
+                    <ul id="appointmentList">
+
+                        <li>
+                            <b>09:30 AM</b> — Dr. Ananya Sharma
+                        </li>
+
+                        <li>
+                            <b>11:00 AM</b> — Dr. Rahul Mehta
+                        </li>
+
+                        <li>
+                            <b>01:30 PM</b> — Dr. Priya Rao
+                        </li>
+
+                        <li>
+                            <b>04:00 PM</b> — Dr. Arjun Kumar
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+                       DOCTORS
+    ====================================================== -->
+
+    <section id="doctors" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+
+                <h1>Our Doctors</h1>
+
+                <p>
+                    Find specialists and view their profiles
+                </p>
+
+            </div>
+
+            <div class="doctor-grid">
+
+                <div class="doctor-card">
+
+                    <img src="img1.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Ananya Sharma</h3>
+
+                        <div class="speciality">
+                            Cardiology
+                        </div>
+
+                        <p>
+                            MBBS, MD Cardiology<br>
+                            Experience: 12 Years
+                        </p>
+
+                        <button class="primary-btn"
+                                onclick="doctorAppointment('Dr. Ananya Sharma')">
+                            Book Appointment
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctor-card">
+
+                    <img src="img2.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Rahul Mehta</h3>
+
+                        <div class="speciality">
+                            Neurology
+                        </div>
+
+                        <p>
+                            MBBS, DM Neurology<br>
+                            Experience: 10 Years
+                        </p>
+
+                        <button class="primary-btn"
+                                onclick="doctorAppointment('Dr. Rahul Mehta')">
+                            Book Appointment
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctor-card">
+
+                    <img src="img3.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Priya Rao</h3>
+
+                        <div class="speciality">
+                            Paediatrics
+                        </div>
+
+                        <p>
+                            MBBS, MD Paediatrics<br>
+                            Experience: 9 Years
+                        </p>
+
+                        <button class="primary-btn"
+                                onclick="doctorAppointment('Dr. Priya Rao')">
+                            Book Appointment
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="doctor-card">
+
+                    <img src="img4.png">
+
+                    <div class="doctor-info">
+
+                        <h3>Dr. Arjun Kumar</h3>
+
+                        <div class="speciality">
+                            Orthopaedics
+                        </div>
+
+                        <p>
+                            MBBS, MS Orthopaedics<br>
+                            Experience: 14 Years
+                        </p>
+
+                        <button class="primary-btn"
+                                onclick="doctorAppointment('Dr. Arjun Kumar')">
+                            Book Appointment
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+                       PRESCRIPTIONS
+    ====================================================== -->
+
+    <section id="prescriptions" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+
+                <h1>Prescription Management</h1>
+
+                <p>
+                    Doctor-authorized medication management
+                </p>
+
+            </div>
+
+            <div id="prescriptionAccess"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+                       BILLING
+    ====================================================== -->
+
+    <section id="billing" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+
+                <h1>Billing & Payments</h1>
+
+                <p>
+                    Manage hospital charges and invoices
+                </p>
+
+            </div>
+
+            <div id="billingAccess"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+                       DISCHARGE
+    ====================================================== -->
+
+    <section id="discharge" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+
+                <h1>Patient Discharge</h1>
+
+                <p>
+                    Manage discharge summaries and patient completion
+                </p>
+
+            </div>
+
+            <div id="dischargeAccess"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+                       PRINT PAGE
+    ====================================================== -->
+
+    <section id="printPage" class="page">
+
+        <div class="page-container">
+
+            <div class="page-title">
+
+                <h1>Patient Report</h1>
+
+                <p>
+                    Generate and print patient information
+                </p>
+
+            </div>
+
+            <div class="card">
+
+                <div class="no-print">
+
+                    <button class="print-btn"
+                            onclick="window.print()">
+                        🖨️ Print Patient Report
+                    </button>
+
+                    <br><br>
+
+                </div>
+
+                <div id="printContent">
+
+                    <h2>CareBridge Hospital</h2>
+
+                    <p>
+                        Integrated Patient Care Management System
+                    </p>
+
+                    <hr><br>
+
+                    <h3>Patient Information</h3>
+
+                    <br>
+
+                    <table>
+
+                        <tr>
+                            <th>Patient ID</th>
+                            <td>P1001</td>
+                        </tr>
+
+                        <tr>
+                            <th>Patient Name</th>
+                            <td>Rahul Sharma</td>
+                        </tr>
+
+                        <tr>
+                            <th>Age</th>
+                            <td>42</td>
+                        </tr>
+
+                        <tr>
+                            <th>Gender</th>
+                            <td>Male</td>
+                        </tr>
+
+                        <tr>
+                            <th>Blood Group</th>
+                            <td>O+</td>
+                        </tr>
+
+                        <tr>
+                            <th>Department</th>
+                            <td>Cardiology</td>
+                        </tr>
+
+                        <tr>
+                            <th>Attending Doctor</th>
+                            <td>Dr. Ananya Sharma</td>
+                        </tr>
+
+                    </table>
+
+                    <br>
+
+                    <p>
+                        This report is generated from the
+                        CareBridge Integrated Patient Care System.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+                     LOGIN SYSTEM
+========================================================= */
+
+const users = {
+
+    admin:{
+        password:"admin123",
+        role:"Administrator",
+        name:"Hospital Administrator"
+    },
+
+    doctor:{
+        password:"doctor123",
+        role:"Doctor",
+        name:"Dr. Hospital"
+    },
+
+    reception:{
+        password:"reception123",
+        role:"Receptionist",
+        name:"Front Desk"
+    },
+
+    nurse:{
+        password:"nurse123",
+        role:"Nurse",
+        name:"Nursing Staff"
+    },
+
+    billing:{
+        password:"billing123",
+        role:"Billing Staff",
+        name:"Billing Department"
+    }
+
+};
+
+let currentUser = null;
+let currentRole = null;
+
+
+function login(){
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const selectedRole =
+        document.getElementById("loginRole").value;
+
+    if(!users[username]){
+
+        alert("Invalid username.");
+
+        return;
+    }
+
+    if(users[username].password !== password){
+
+        alert("Incorrect password.");
+
+        return;
+    }
+
+    if(
+        username !== selectedRole &&
+        !(username === "reception" && selectedRole === "receptionist")
+    ){
+
+        alert("Please select the correct role.");
+
+        return;
+    }
+
+    currentUser = username;
+
+    currentRole =
+        username === "reception"
+        ? "receptionist"
+        : username;
+
+    document.getElementById("loginPage").style.display="none";
+
+    document.getElementById("app").style.display="block";
+
+    document.getElementById("welcomeUser").textContent =
+        users[username].name;
+
+    document.getElementById("currentRole").textContent =
+        users[username].role;
+
+    setupPermissions();
+
+    showPage("home");
+
+}
+
+
+/* =========================================================
+                     LOGOUT
+========================================================= */
+
+function logout(){
+
+    currentUser=null;
+    currentRole=null;
+
+    document.getElementById("app").style.display="none";
+
+    document.getElementById("loginPage").style.display="flex";
+
+    document.getElementById("username").value="";
+    document.getElementById("password").value="";
+
+}
+
+
+/* =========================================================
+                     NAVIGATION
+========================================================= */
+
+function showPage(pageId){
+
+    document.querySelectorAll(".page").forEach(page=>{
+        page.classList.remove("active");
+    });
+
+    const page=document.getElementById(pageId);
+
+    if(page){
+        page.classList.add("active");
+    }
+
+    document.querySelectorAll(".navbar button").forEach(btn=>{
+        btn.classList.remove("active");
+    });
+
+    const buttons=document.querySelectorAll(".navbar button");
+
+    buttons.forEach(btn=>{
+
+        if(btn.textContent.toLowerCase().includes(
+            pageId === "home" ? "home" : pageId
+        )){
+            btn.classList.add("active");
+        }
+
+    });
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+
+}
+
+
+/* =========================================================
+                     PERMISSIONS
+========================================================= */
+
+function setupPermissions(){
+
+    setupPatients();
+    setupPrescriptions();
+    setupBilling();
+    setupDischarge();
+
+}
+
+
+/* =========================================================
+                     PATIENT MANAGEMENT
+========================================================= */
+
+function setupPatients(){
+
+    const container =
+        document.getElementById("patientAccess");
+
+    /*
+      Receptionist + Admin can modify registration.
+      Doctor/Nurse can view patient information.
+    */
+
+    if(
+        currentRole === "admin" ||
+        currentRole === "receptionist"
+    ){
+
+        container.innerHTML = `
+
+        <div class="card">
+
+            <h2>Register New Patient</h2>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Patient ID</label>
+
+                    <input id="patientId"
+                           value="P${Math.floor(1000 + Math.random()*9000)}"
+                           readonly>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Full Name</label>
+
+                    <input id="patientName"
+                           placeholder="Patient name">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Age</label>
+
+                    <input id="patientAge"
+                           type="number"
+                           placeholder="Age">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Gender</label>
+
+                    <select id="patientGender">
+
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Blood Group</label>
+
+                    <select id="bloodGroup">
+
+                        <option>A+</option>
+                        <option>A-</option>
+                        <option>B+</option>
+                        <option>B-</option>
+                        <option>AB+</option>
+                        <option>AB-</option>
+                        <option>O+</option>
+                        <option>O-</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Phone</label>
+
+                    <input id="patientPhone"
+                           placeholder="10 digit number">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Department</label>
+
+                    <select id="patientDepartment">
+
+                        <option>Cardiology</option>
+                        <option>Neurology</option>
+                        <option>Orthopaedics</option>
+                        <option>Paediatrics</option>
+                        <option>General Medicine</option>
+
+                    </select>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Attending Doctor</label>
+
+                    <select id="patientDoctor">
+
+                        <option>Dr. Ananya Sharma</option>
+                        <option>Dr. Rahul Mehta</option>
+                        <option>Dr. Priya Rao</option>
+                        <option>Dr. Arjun Kumar</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-actions">
+
+                <button class="primary-btn"
+                        onclick="registerPatient()">
+                    Register Patient
+                </button>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+    else{
+
+        container.innerHTML = `
+
+        <div class="card">
+
+            <div class="access-denied">
+
+                <div class="lock">👁️</div>
+
+                <h2>View-Only Access</h2>
+
+                <p>
+                    Your role can view patient records but cannot
+                    modify patient registration information.
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    container.innerHTML += `
+
+    <div class="card">
+
+        <h2>Patient Directory</h2>
+
+        <br>
+
+        <div class="search-box">
+
+            <input id="patientSearch"
+                   placeholder="Search by Patient ID, name, phone or doctor"
+                   onkeyup="searchPatients()">
+
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Patient ID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Blood</th>
+                        <th>Department</th>
+                        <th>Doctor</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="patientTable">
+
+                    <tr>
+
+                        <td>P1001</td>
+                        <td>Rahul Sharma</td>
+                        <td>42</td>
+                        <td>O+</td>
+                        <td>Cardiology</td>
+                        <td>Dr. Ananya Sharma</td>
+                        <td>
+                            <span class="status green">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>P1002</td>
+                        <td>Priya Patil</td>
+                        <td>29</td>
+                        <td>A+</td>
+                        <td>Neurology</td>
+                        <td>Dr. Rahul Mehta</td>
+                        <td>
+                            <span class="status orange">
+                                Under Care
+                            </span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>P1003</td>
+                        <td>Arun Kumar</td>
+                        <td>58</td>
+                        <td>B+</td>
+                        <td>Orthopaedics</td>
+                        <td>Dr. Arjun Kumar</td>
+                        <td>
+                            <span class="status green">
+                                Active
+                            </span>
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+                 REGISTER PATIENT
+========================================================= */
+
+function registerPatient(){
+
+    const name =
+        document.getElementById("patientName").value;
+
+    const age =
+        document.getElementById("patientAge").value;
+
+    const phone =
+        document.getElementById("patientPhone").value;
+
+    if(!name || !age || !phone){
+
+        alert("Please fill all required patient details.");
+
+        return;
+    }
+
+    const id =
+        document.getElementById("patientId").value;
+
+    const blood =
+        document.getElementById("bloodGroup").value;
+
+    const department =
+        document.getElementById("patientDepartment").value;
+
+    const doctor =
+        document.getElementById("patientDoctor").value;
+
+    const row=document.createElement("tr");
+
+    row.innerHTML=`
+
+        <td>${id}</td>
+        <td>${name}</td>
+        <td>${age}</td>
+        <td>${blood}</td>
+        <td>${department}</td>
+        <td>${doctor}</td>
+        <td>
+            <span class="status green">
+                Active
+            </span>
+        </td>
+
+    `;
+
+    document.getElementById("patientTable")
+        .appendChild(row);
+
+    alert(
+        "Patient registered successfully!\nPatient ID: "
+        + id
+    );
+
+}
+
+
+/* =========================================================
+                     SEARCH
+========================================================= */
+
+function searchPatients(){
+
+    const input =
+        document.getElementById("patientSearch")
+        .value.toLowerCase();
+
+    const rows =
+        document.querySelectorAll("#patientTable tr");
+
+    rows.forEach(row=>{
+
+        const text =
+            row.textContent.toLowerCase();
+
+        row.style.display =
+            text.includes(input) ? "" : "none";
+
+    });
+
+}
+
+
+/* =========================================================
+                     PRESCRIPTIONS
+========================================================= */
+
+function setupPrescriptions(){
+
+    const container =
+        document.getElementById("prescriptionAccess");
+
+    if(
+        currentRole === "admin" ||
+        currentRole === "doctor"
+    ){
+
+        container.innerHTML=`
+
+        <div class="card">
+
+            <h2>Doctor Prescription Panel</h2>
+
+            <p style="color:#777;margin-top:8px">
+                Only authorized doctors or administrators can
+                create and modify prescriptions.
+            </p>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Patient ID</label>
+
+                    <input id="rxPatient"
+                           placeholder="P1001">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Diagnosis</label>
+
+                    <input id="rxDiagnosis"
+                           placeholder="Diagnosis">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Medicine</label>
+
+                    <input id="medicine"
+                           placeholder="Medicine name">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Dosage</label>
+
+                    <input id="dosage"
+                           placeholder="Example: 1 tablet">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Duration</label>
+
+                    <input id="duration"
+                           placeholder="Example: 5 days">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Doctor Notes</label>
+
+                    <textarea id="doctorNotes"
+                              rows="3"
+                              placeholder="Clinical instructions"></textarea>
+
+                </div>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="savePrescription()">
+
+                💊 Save Prescription
+
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Prescription History</h2>
+
+            <br>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Patient</th>
+                        <th>Diagnosis</th>
+                        <th>Medicine</th>
+                        <th>Dosage</th>
+                        <th>Duration</th>
+                        <th>Doctor</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="prescriptionTable">
+
+                    <tr>
+
+                        <td>P1001</td>
+                        <td>Hypertension</td>
+                        <td>Medicine A</td>
+                        <td>1 tablet</td>
+                        <td>5 days</td>
+                        <td>Dr. Ananya Sharma</td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        `;
+
+    }
+    else{
+
+        container.innerHTML=`
+
+        <div class="card">
+
+            <div class="access-denied">
+
+                <div class="lock">🔒</div>
+
+                <h2>Access Restricted</h2>
+
+                <p>
+                    Only doctors and administrators can create
+                    or modify patient prescriptions.
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+                 SAVE PRESCRIPTION
+========================================================= */
+
+function savePrescription(){
+
+    const patient =
+        document.getElementById("rxPatient").value;
+
+    const diagnosis =
+        document.getElementById("rxDiagnosis").value;
+
+    const medicine =
+        document.getElementById("medicine").value;
+
+    const dosage =
+        document.getElementById("dosage").value;
+
+    const duration =
+        document.getElementById("duration").value;
+
+    if(!patient || !medicine || !dosage){
+
+        alert("Please enter patient and medicine details.");
+
+        return;
+    }
+
+    const row =
+        document.createElement("tr");
+
+    row.innerHTML=`
+
+        <td>${patient}</td>
+        <td>${diagnosis}</td>
+        <td>${medicine}</td>
+        <td>${dosage}</td>
+        <td>${duration}</td>
+        <td>Authorized Doctor</td>
+
+    `;
+
+    document
+        .getElementById("prescriptionTable")
+        .appendChild(row);
+
+    alert("Prescription saved successfully.");
+
+}
+
+
+/* =========================================================
+                     BILLING
+========================================================= */
+
+function setupBilling(){
+
+    const container =
+        document.getElementById("billingAccess");
+
+    if(
+        currentRole === "admin" ||
+        currentRole === "billing"
+    ){
+
+        container.innerHTML=`
+
+        <div class="card">
+
+            <h2>Create Patient Invoice</h2>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Patient ID</label>
+
+                    <input id="billPatient"
+                           placeholder="P1001">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Room / Bed Charges</label>
+
+                    <input id="bedCharge"
+                           type="number"
+                           value="500">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Doctor Consultation</label>
+
+                    <input id="doctorCharge"
+                           type="number"
+                           value="500">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Lab Charges</label>
+
+                    <input id="labCharge"
+                           type="number"
+                           value="300">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Medicine Charges</label>
+
+                    <input id="medicineCharge"
+                           type="number"
+                           value="200">
+
+                </div>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="generateBill()">
+
+                💳 Generate Invoice
+
+            </button>
+
+        </div>
+
+
+        <div class="card">
+
+            <h2>Invoice</h2>
+
+            <div id="invoice">
+
+                <p>
+                    Enter patient details and generate invoice.
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+    else{
+
+        container.innerHTML=`
+
+        <div class="card">
+
+            <div class="access-denied">
+
+                <div class="lock">🔒</div>
+
+                <h2>Access Restricted</h2>
+
+                <p>
+                    Billing records can only be modified by
+                    billing staff or administrators.
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+                     GENERATE BILL
+========================================================= */
+
+function generateBill(){
+
+    const patient =
+        document.getElementById("billPatient").value;
+
+    const bed =
+        Number(document.getElementById("bedCharge").value);
+
+    const doctor =
+        Number(document.getElementById("doctorCharge").value);
+
+    const lab =
+        Number(document.getElementById("labCharge").value);
+
+    const medicine =
+        Number(document.getElementById("medicineCharge").value);
+
+    const total =
+        bed + doctor + lab + medicine;
+
+    document.getElementById("invoice").innerHTML=`
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Patient ID</th>
+                    <td>${patient}</td>
+                </tr>
+
+                <tr>
+                    <th>Bed Charges</th>
+                    <td>₹${bed}</td>
+                </tr>
+
+                <tr>
+                    <th>Doctor Consultation</th>
+                    <td>₹${doctor}</td>
+                </tr>
+
+                <tr>
+                    <th>Lab Charges</th>
+                    <td>₹${lab}</td>
+                </tr>
+
+                <tr>
+                    <th>Medicine Charges</th>
+                    <td>₹${medicine}</td>
+                </tr>
+
+                <tr>
+                    <th>Grand Total</th>
+                    <td>
+                        <b>₹${total}</b>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <br>
+
+        <button class="print-btn"
+                onclick="window.print()">
+
+            🖨️ Print Invoice
+
+        </button>
+
+    `;
+
+}
+
+
+/* =========================================================
+                     DISCHARGE
+========================================================= */
+
+function setupDischarge(){
+
+    const container =
+        document.getElementById("dischargeAccess");
+
+    if(
+        currentRole === "admin" ||
+        currentRole === "doctor"
+    ){
+
+        container.innerHTML=`
+
+        <div class="card">
+
+            <h2>Patient Discharge Summary</h2>
+
+            <br>
+
+            <div class="form-grid">
+
+                <div class="form-group">
+
+                    <label>Patient ID</label>
+
+                    <input id="dischargePatient"
+                           placeholder="P1001">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Doctor</label>
+
+                    <input id="dischargeDoctor"
+                           value="Authorized Doctor">
+
+                </div>
+
+                <div class="form-group full-field">
+
+                    <label>Final Diagnosis</label>
+
+                    <textarea id="finalDiagnosis"
+                              rows="3"></textarea>
+
+                </div>
+
+                <div class="form-group full-field">
+
+                    <label>Discharge Instructions</label>
+
+                    <textarea id="dischargeInstructions"
+                              rows="4"></textarea>
+
+                </div>
+
+            </div>
+
+            <button class="primary-btn"
+                    onclick="completeDischarge()">
+
+                📄 Complete Discharge
+
+            </button>
+
+        </div>
+
+        `;
+
+    }
+    else{
+
+        container.innerHTML=`
+
+        <div class="card">
+
+            <div class="access-denied">
+
+                <div class="lock">🔒</div>
+
+                <h2>Access Restricted</h2>
+
+                <p>
+                    Discharge summaries can only be completed
+                    by doctors or administrators.
+                </p>
+
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+                 COMPLETE DISCHARGE
+========================================================= */
+
+function completeDischarge(){
+
+    const patient =
+        document.getElementById("dischargePatient").value;
+
+    const diagnosis =
+        document.getElementById("finalDiagnosis").value;
+
+    if(!patient || !diagnosis){
+
+        alert("Please enter patient ID and diagnosis.");
+
+        return;
+    }
+
+    alert(
+        "Discharge completed successfully for " + patient
+    );
+
+}
+
+
+/* =========================================================
+                     APPOINTMENT
+========================================================= */
+
+function bookAppointment(){
+
+    const patient =
+        document.getElementById("appointmentPatient").value;
+
+    const doctor =
+        document.getElementById("appointmentDoctor").value;
+
+    const date =
+        document.getElementById("appointmentDate").value;
+
+    const time =
+        document.getElementById("appointmentTime").value;
+
+    if(!patient || !date || !time){
+
+        alert("Please enter patient, date and time.");
+
+        return;
+    }
+
+    const list =
+        document.getElementById("appointmentList");
+
+    const item =
+        document.createElement("li");
+
+    item.innerHTML=`
+
+        <b>${time}</b> —
+        ${doctor}
+        <br>
+        <small>
+            Patient: ${patient} | ${date}
+        </small>
+
+    `;
+
+    list.appendChild(item);
+
+    alert("Appointment booked successfully.");
+
+}
+
+
+/* =========================================================
+                 DOCTOR APPOINTMENT
+========================================================= */
+
+function doctorAppointment(doctor){
+
+    showPage("appointments");
+
+    document.getElementById("appointmentDoctor")
+        .value=doctor;
+
+}
+
+
+/* =========================================================
+                     STARTUP
+========================================================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+    document.getElementById("loginPage")
+        .style.display="flex";
+
+});
+
+</script>
+
+</body>
+</html>
